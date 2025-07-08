@@ -1,22 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Editor</title>
     <style>
-        html, body {
-            
+        html,
+        body {
+
             margin: 0;
             padding: 0;
         }
-        
-        
+
+
         table {
             width: 100%;
             height: 100vh;
-            
+
         }
+
         input[type="text"] {
             width: 100%;
             height: 50px;
@@ -24,15 +28,18 @@
             font-size: 20px;
             padding: 10px;
         }
+
         textarea {
             width: 100%;
-            height: calc(100vh - 50px - 60px - 60px); /* 50px for title, 60px for submit, 60px for margins */
+            height: calc(100vh - 50px - 60px - 60px);
+            /* 50px for title, 60px for submit, 60px for margins */
             min-height: 100px;
             box-sizing: border-box;
             resize: none;
             font-size: 12px;
             padding: 10px;
         }
+
         input[type="submit"] {
             width: 100%;
             height: 60px;
@@ -46,26 +53,27 @@
             cursor: pointer;
             transition: background 0.2s;
         }
+
         input[type="submit"]:hover {
             background: #1565c0;
         }
     </style>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 </head>
+
 <body>
-    <h1>Text Editor</h1>
+    
     <form action="{% url 'save_text' %}" method="post" style="height:100vh;">
         {% csrf_token %}
         <table style="width:100%;height:100%;">
-            <tr>
-                <td><input type="text" name="title" id="" placeholder="Title"></td>
-            </tr>
-            <tr style="height:100%;">
-                <td style="height:100%;"><textarea name="description" id="" placeholder="Description"></textarea></td>
-            </tr>
+            {{ form.as_table }}
             <tr>
                 <td><input type="submit" value="Save"></td>
             </tr>
         </table>
     </form>
+    {{ form.media }}
 </body>
+
 </html>

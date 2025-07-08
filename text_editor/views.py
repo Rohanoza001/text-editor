@@ -1,17 +1,18 @@
-from tkinter import YES
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
+from .forms import EditorForm
+
 # Create your views here.
 
 def index(request):
-    return render(request, 'text_editor/index.html')
+    form = EditorForm()
+    return render(request, 'text_editor/index.html', {'form': form})
 
 def save_text(request):
     if request.method == 'POST':
-        title = request.POST['title']
         description = request.POST['description']
-        print(title, description)
-        data = Editor.objects.create(title=title, text=description)
+        print(description)
+        data = Editor.objects.create(text=description)  #ignore objects there is no error
     return render(request, 'text_editor/show.html')
 
 def show_data(request):
